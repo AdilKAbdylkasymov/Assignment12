@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Task Management App</h1>
+
+    <form @submit.prevent="addTask">
+      <label for="taskTitle">Task Title:</label>
+      <input type="text" id="taskTitle" v-model="newTask.title" required>
+
+      <label for="taskStatus">Status:</label>
+      <select id="taskStatus" v-model="newTask.completed">
+        <option value="false">Incomplete</option>
+        <option value="true">Completed</option>
+      </select>
+
+      <button type="submit">Add Task</button>
+    </form>
+
+    <div>
+      <h2>Incomplete Tasks</h2>
+      <ul>
+        <li v-for="task in incompleteTasks" :key="task.id">
+          {{ task.title }} - Incomplete
+          <button @click="toggleTaskStatus(task)">Mark as Complete</button>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Completed Tasks</h2>
+      <ul>
+        <li v-for="task in completedTasks" :key="task.id">
+          {{ task.title }} - Completed
+          <button @click="toggleTaskStatus(task)">Mark as Incomplete</button>
+        </li>
+      </ul>
+    </div>
+
+    <p>Total Incomplete Tasks: {{ totalIncompleteTasks }}</p>
+    <p>Total Completed Tasks: {{ totalCompletedTasks }}</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="main.js"></script>
+</body>
+</html>
